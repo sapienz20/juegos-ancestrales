@@ -1,0 +1,6 @@
+{
+  "appId": "co.juegosancestrales.app",
+  "appName": "Juegos Ancestrales",
+  "webDir": "dist",
+  "android": { "allowMixedContent": false }
+}
