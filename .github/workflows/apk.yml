@@ -7,6 +7,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   apk:
     runs-on: ubuntu-latest
@@ -49,3 +52,14 @@ jobs:
         with:
           name: juegos-ancestrales-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Renombrar el instalador
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk JuegosAncestrales.apk
+
+      # Publica el instalador en la sección "Releases" del repositorio para descargarlo desde el teléfono.
+      - name: Publicar instalador
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v0.1.${{ github.run_number }}"
+          gh release create "$TAG" JuegosAncestrales.apk --title "Juegos Ancestrales $TAG" --notes "Instalador para Android. Descarga JuegosAncestrales.apk en el teléfono y ábrelo." --latest
