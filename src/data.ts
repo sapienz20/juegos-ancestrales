@@ -268,7 +268,7 @@ export const GAMES: Game[] = [
     article: 'el palmo o cacha',
     theme: { h1: '#8f7a2c', h2: '#c7b45c', t1: '#8f7a2c', t2: '#c7b45c', acc: '#b9a145', accL: '#e3d99a', press: '#9c8536' },
     map: 'img/mapa_trompo.jpg', // POR REEMPLAZAR: mapa propio del palmo
-    vivencia: 'img/vivencia_trompo.jpg', // POR REEMPLAZAR
+    vivencia: 'img/vivencia_palmo.jpg',
     origen: { title: 'La historia del palmo o cacha', text: PENDIENTE('la narración del origen del palmo o cacha') },
     creando: { title: 'Construcción del palmo y la cacha', text: PENDIENTE('el paso a paso para elaborar el palmo, la cacha y el hoyo') },
     vivenciaText: VIVENCIA,
@@ -369,7 +369,7 @@ export const GAMES: Game[] = [
     article: 'el zumbambico',
     theme: { h1: '#8a5f30', h2: '#c39a62', t1: '#8a5f30', t2: '#c39a62', acc: '#b88a56', accL: '#e6cfa0', press: '#8f6534' },
     map: 'img/mapa_trompo.jpg', // POR REEMPLAZAR
-    vivencia: 'img/vivencia_trompo.jpg', // POR REEMPLAZAR
+    vivencia: 'img/vivencia_zumbambico.jpg',
     origen: { title: 'La historia del zumbambico', text: PENDIENTE('la narración de la historia del zumbambico y del espíritu del viento') },
     creando: { title: 'Construcción del zumbambico', text: PENDIENTE('el paso a paso para construir el zumbambico con semilla, guasca y guadua') },
     vivenciaText: VIVENCIA,

@@ -96,6 +96,8 @@ export const Icon = ({ name, size = 22 }: { name: string; size?: number }) => {
       return <svg {...s}><path d="M12 21v-6" /><path d="M12 3c-3.5 0-6 2.7-6 6 0 3.2 2.7 6 6 6s6-2.8 6-6c0-3.3-2.5-6-6-6Z" /></svg>;
     case 'palm':
       return <svg {...s}><path d="M12 21c0-5 .5-9 1-12" /><path d="M13 9c-2-3-5.5-3.5-8-2 2.7.2 5 1 8 2Zm0 0c1-3.5 4.5-5 7.5-4-2.5.8-5 2-7.5 4Zm0 0c3 0 6 1.5 7 4.5-2.5-1.6-4.5-2.8-7-4.5Zm0 0c-3 .5-5.5 3-6 6 2-2.2 4-4 6-6Z" /></svg>;
+    case 'trueno':
+      return <svg {...s}><path d="M7 15.5a4.5 4.5 0 1 1 1.2-8.8A5.5 5.5 0 0 1 18.6 9 3.5 3.5 0 0 1 17.5 15.5" /><path d="m12.5 12-2.5 4.5h3L11 21" /></svg>;
     case 'logout':
       return <svg {...s}><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10" /></svg>;
     default:

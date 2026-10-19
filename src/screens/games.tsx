@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GAMES, Game, GameId, gameById } from '../data';
-import { currentUser, levelUnlocked, markSeen, saberes, useStore } from '../store';
+import { currentUser, levelUnlocked, markSeen, saberes, updateUser, useStore } from '../store';
+import { GUIAS } from '../vivencias';
 import { nav, replace } from '../router';
 import { Avatar, Btn, Colibri, GameIcon, Header, HelpButton, Icon, Progress, TabBar, themeStyle, speak, canSpeak } from '../ui';
 
@@ -176,31 +177,139 @@ export function Player({ title, kind }: { title: string; kind: string }) {
 
 export function Vivencia({ g }: { g: GameId }) {
   const game = gameById(g);
-  const more = useRef<HTMLDivElement>(null);
+  const guia = GUIAS[g];
+  const s = useStore();
+  const u = currentUser(s)!;
+  const [open, setOpen] = useState<string | null>('proposito');
+  const toggle = (k: string) => setOpen(open === k ? null : k);
+  const pasos = guia.pasos.flatMap((p) => (p.items ?? []).map((_, i) => `${g}:paso:${p.fase}:${i}`));
+  const hechos = pasos.filter((k) => u.seen.includes(k)).length;
+  const check = (k: string) => updateUser((x) => ({ ...x, seen: x.seen.includes(k) ? x.seen.filter((y) => y !== k) : [...x.seen, k] }));
+  const sec = (k: string, n: number, title: string, body: React.ReactNode, extra?: React.ReactNode) => (
+    <section className={'acc' + (open === k ? ' open' : '')}>
+      <button className="acc-h" onClick={() => toggle(k)} aria-expanded={open === k}>
+        <span className="acc-n">{n}</span>
+        <span className="acc-t">{title}</span>
+        {extra}
+        <span className="acc-ch"><Icon name="down" size={22} /></span>
+      </button>
+      {open === k && <div className="acc-b">{body}</div>}
+    </section>
+  );
+  const iconos = ['comunidad', 'tree', 'memoria'];
   return (
     <div className="scr themed" style={themeStyle(game)}>
       <Header title={game.name.toUpperCase()} section="Vivencia" icon="img/ic_vivencia.png" />
       <div className="body viv">
         <div className="viv-hero" style={{ backgroundImage: `url(${game.vivencia})` }} />
-        <div className="viv-card">
-          <h2>¿Por qué y para qué se juega?</h2>
-          <p>{game.vivenciaText}</p>
-          {canSpeak() && (
-            <button className="link-btn" onClick={() => speak(game.vivenciaText)}>
-              <Icon name="speaker" size={18} /> Escuchar
-            </button>
+        <div className="accs">
+          {sec(
+            'proposito',
+            1,
+            'Propósito',
+            <>
+              <h4 className="acc-q">¿Por qué y para qué se juega?</h4>
+              {guia.proposito.map((t, i) => <p key={i}>{t}</p>)}
+              <Leer text={guia.proposito.join(' ')} />
+            </>,
           )}
-        </div>
-        <button className="viv-more" onClick={() => more.current?.scrollIntoView({ behavior: 'smooth' })} aria-label="Ver más">
-          <Icon name="down" size={28} />
-        </button>
-        <div className="viv-wip" ref={more}>
-          <h3>Contenido en reestructuración</h3>
-          <p>Esta sección de la vivencia se está ajustando con la comunidad. Muy pronto podrás explorarla.</p>
+          {sec(
+            'orientaciones',
+            2,
+            'Orientaciones',
+            <>
+              <div className="orient-ic">
+                {iconos.map((n) => (
+                  <span key={n}><Icon name={n} size={26} /></span>
+                ))}
+              </div>
+              {guia.orientaciones.map((t, i) => <p key={i}>{t}</p>)}
+              {guia.rituales && (
+                <div className="rit">
+                  <h4>{guia.rituales.intro}</h4>
+                  <ol>
+                    {guia.rituales.items.map((t) => <li key={t}>{t}</li>)}
+                  </ol>
+                  <p>{guia.rituales.cierre}</p>
+                </div>
+              )}
+              {guia.simbolos && (
+                <div className="simb">
+                  {guia.simbolos.map((x, i) => (
+                    <div key={x.cosa} className="simb-it">
+                      <span className="simb-ic">{i === 0 ? <GameIcon id="trompo" size={30} /> : <Icon name="trueno" size={30} />}</span>
+                      <p><b>{x.cosa}</b> {x.significa}.</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {guia.porValidar && <p className="tag-val">{guia.porValidar}</p>}
+              <Leer text={guia.orientaciones.join(' ')} />
+            </>,
+          )}
+          {sec(
+            'reglas',
+            3,
+            'Reglas y acuerdos del juego',
+            <>
+              {guia.reglas.map((t, i) => <p key={i}>{t}</p>)}
+              <h4 className="acc-sub">Qué necesitas</h4>
+              <ul className="need">
+                {guia.necesitas.map((t) => (
+                  <li key={t}><span className="need-dot" />{t}</li>
+                ))}
+              </ul>
+              <h4 className="acc-sub">Paso a paso</h4>
+              <p className="hint small">Marca cada paso cuando lo hayas practicado.</p>
+              <div className="pasos-bar" aria-label={`${hechos} de ${pasos.length} pasos practicados`}>
+                {pasos.map((k) => <i key={k} className={u.seen.includes(k) ? 'on' : ''} />)}
+              </div>
+              {guia.pasos.map((p) => (
+                <div key={p.fase} className="fase">
+                  <h5>{p.fase}</h5>
+                  {p.items ? (
+                    p.items.map((t, i) => {
+                      const k = `${g}:paso:${p.fase}:${i}`;
+                      const on = u.seen.includes(k);
+                      return (
+                        <button key={k} className={'paso' + (on ? ' on' : '')} onClick={() => check(k)} aria-pressed={on}>
+                          <span className="paso-c">{on && <Icon name="check" size={14} />}</span>
+                          <span>{t}</span>
+                        </button>
+                      );
+                    })
+                  ) : (
+                    <p className="paso-pend">Por definir con la comunidad.</p>
+                  )}
+                </div>
+              ))}
+              {hechos === pasos.length && pasos.length > 0 && <p className="paso-ok"><Icon name="check" size={18} /> ¡Practicaste todos los pasos!</p>}
+            </>,
+            <span className="acc-pill">{hechos}/{pasos.length}</span>,
+          )}
+          {sec(
+            'recomendaciones',
+            4,
+            'Recomendaciones',
+            guia.recomendaciones ? (
+              <>{guia.recomendaciones.map((t, i) => <p key={i}>{t}</p>)}</>
+            ) : (
+              <p className="paso-pend">Las recomendaciones se están construyendo con la comunidad.</p>
+            ),
+          )}
         </div>
       </div>
       <TabBar active="juegos" />
     </div>
+  );
+}
+
+function Leer({ text }: { text: string }) {
+  if (!canSpeak()) return null;
+  return (
+    <button className="link-btn" onClick={() => speak(text)}>
+      <Icon name="speaker" size={18} /> Escuchar
+    </button>
   );
 }
 

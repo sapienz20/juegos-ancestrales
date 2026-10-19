@@ -39,7 +39,7 @@ export default function App() {
     case 'map': screen = <MapScreen g={r.g} />; break;
     case 'game': screen = <GameHome g={r.g} />; break;
     case 'video': screen = <VideoScreen g={r.g} part={r.part} />; break;
-    case 'vivencia': screen = <Vivencia g={r.g} />; break;
+    case 'vivencia': screen = <Vivencia key={r.g} g={r.g} />; break;
     case 'levels': screen = <Levels g={r.g} />; break;
     case 'play': screen = <Play key={r.g + r.n} g={r.g} n={r.n} />; break;
     case 'logro': screen = <Logro g={r.g} />; break;
