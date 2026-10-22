@@ -2,48 +2,29 @@ import { ReactNode, CSSProperties, useEffect } from 'react';
 import { Game, GameId, avatarSrc } from './data';
 import { useStore, currentUser } from './store';
 import { nav, back, Route } from './router';
+import { ICONS } from './iconset';
+
+export function KitIcon({ name, size = 24 }: { name: string; size?: number }) {
+  const ic = ICONS[name];
+  if (!ic) return null;
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      {ic.map(([d, r], i) => (
+        <path key={i} d={d} fillRule={r as 'nonzero' | 'evenodd'} fill="currentColor" />
+      ))}
+    </svg>
+  );
+}
+
+const KIT: Record<string, string> = { back: 'chevron-left', chev: 'chevron-right', down: 'chevron-down', up: 'chevron-up', check: 'check', x: 'x', lock: 'lock', pencil: 'pencil', memoria: 'memoria', juegos: 'tab-juegos', logros: 'tab-logros', mediateca: 'tab-mediateca', comunidad: 'tab-comunidad', user: 'user', mail: 'mail', eye: 'eye', expand: 'expand', sun: 'sun', mountain: 'mountain', rol: 'rol', pin: 'pin', origen: 'origen', creando: 'creando', vivencia: 'vivencia', retosaberes: 'retosaberes' };
 
 // ---------- íconos ----------
 const P = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
 
-export const GameIcon = ({ id, size = 24 }: { id: GameId; size?: number }) => {
-  const s = { width: size, height: size, viewBox: '0 0 24 24' };
-  if (id === 'bodoquera')
-    return (
-      <svg {...s} fill="none">
-        <circle cx="13" cy="11" r="9" stroke="currentColor" strokeWidth="1.8" />
-        <circle cx="13" cy="11" r="5.2" stroke="currentColor" strokeWidth="1.6" />
-        <circle cx="13" cy="11" r="1.6" fill="currentColor" />
-        <path d="M1.5 21.5L12.2 11.8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-      </svg>
-    );
-  if (id === 'trompo')
-    return (
-      <svg {...s} fill="none">
-        <path d="M5 3.5C5 2.5 8.1 1.7 12 1.7S19 2.5 19 3.5L17.8 9 12.6 19.5h-1.2L6.2 9 5 3.5Z" fill="currentColor" />
-        <path d="M12 19.5v2.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        <ellipse cx="12" cy="22" rx="5" ry="1.3" stroke="currentColor" />
-      </svg>
-    );
-  if (id === 'palmo')
-    return (
-      <svg {...s} fill="none">
-        <rect x="7" y="1.5" width="3.2" height="18" rx="1.6" fill="currentColor" />
-        <ellipse cx="8.6" cy="21" rx="3.4" ry="1.2" fill="currentColor" />
-        <path d="M13.5 18C13.5 13 17 8.7 22 7.5 21.4 12.9 18.2 17.1 13.5 18Z" fill="currentColor" />
-      </svg>
-    );
-  return (
-    <svg {...s} fill="none">
-      <circle cx="16" cy="7" r="5" fill="currentColor" />
-      <path d="M13 10 4 21.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M17.5 1.8c1.5.8 2.6 2 3 3.6M19.4.6c1.8 1.1 3 2.6 3.4 4.6" stroke="currentColor" strokeLinecap="round" />
-      <ellipse cx="4.5" cy="22" rx="3" ry="1" stroke="currentColor" />
-    </svg>
-  );
-};
+export const GameIcon = ({ id, size = 24 }: { id: GameId; size?: number }) => <KitIcon name={`juego-${id}`} size={size} />;
 
 export const Icon = ({ name, size = 22 }: { name: string; size?: number }) => {
+  if (KIT[name]) return <KitIcon name={KIT[name]} size={size} />;
   const s = { width: size, height: size, viewBox: '0 0 24 24', ...P };
   switch (name) {
     case 'back':
@@ -190,7 +171,7 @@ export function Progress({ level, label = 'Aprendiz ancestral' }: { level: numbe
   );
 }
 
-export function Overlay({ children, onClose }: { children: ReactNode; onClose?: () => void }) {
+export function Overlay({ children, onClose, bare }: { children: ReactNode; onClose?: () => void; bare?: boolean }) {
   useEffect(() => {
     const k = (e: KeyboardEvent) => e.key === 'Escape' && onClose?.();
     window.addEventListener('keydown', k);
@@ -198,7 +179,7 @@ export function Overlay({ children, onClose }: { children: ReactNode; onClose?: 
   }, [onClose]);
   return (
     <div className="ov" onClick={onClose}>
-      <div className="ov-card" onClick={(e) => e.stopPropagation()} role="dialog">
+      <div className={bare ? 'ov-bare' : 'ov-card'} onClick={(e) => e.stopPropagation()} role="dialog">
         {children}
       </div>
     </div>

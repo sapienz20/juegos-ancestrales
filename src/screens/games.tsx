@@ -3,7 +3,8 @@ import { GAMES, Game, GameId, gameById } from '../data';
 import { currentUser, levelUnlocked, markSeen, saberes, updateUser, useStore } from '../store';
 import { GUIAS } from '../vivencias';
 import { nav, replace } from '../router';
-import { Avatar, Btn, Colibri, GameIcon, Header, HelpButton, Icon, Progress, TabBar, themeStyle, speak, canSpeak } from '../ui';
+import { TransitionCard } from '../overlays';
+import { Avatar, Btn, GameIcon, Header, HelpButton, Icon, Progress, TabBar, themeStyle, speak, canSpeak } from '../ui';
 
 // Muestra el mensaje del colibrí la primera vez que se entra a una sección.
 function useTransition(key: string) {
@@ -61,7 +62,7 @@ export function MapScreen({ g }: { g: GameId }) {
         </div>
       </div>
       <TabBar active="juegos" />
-      {intro && <Colibri title="¡Explora el territorio!" text={game.transitions.mapa} onAction={close} />}
+      {intro && <TransitionCard g={g} title="¡Explora el territorio!" text={game.transitions.mapa} onAction={close} />}
     </div>
   );
 }
@@ -102,7 +103,8 @@ export function GameHome({ g }: { g: GameId }) {
       </div>
       <TabBar active="juegos" />
       {pending && (
-        <Colibri
+        <TransitionCard
+          g={g}
           title={titles[pending]}
           text={game.transitions[pending as keyof Game['transitions']]}
           onAction={() => {

@@ -64,10 +64,10 @@ export const GAMES: Game[] = [
     creando: { title: 'Construcción de la bodoquera', text: PENDIENTE('el paso a paso de la construcción de la bodoquera, con sus materiales') },
     vivenciaText: VIVENCIA,
     transitions: {
-      mapa: 'Acompáñame a recorrer el territorio donde nace la bodoquera.',
+      mapa: 'Acompáñame a recorrer el territorio donde se juega la bodoquera.',
       origen: 'Escucha la historia del viento y descubre de dónde viene la bodoquera.',
-      creando: 'Mira cómo los mayores construyen la bodoquera, paso a paso.',
-      vivencia: 'Conoce por qué y para qué se juega en comunidad.',
+      creando: 'Mira cómo los mayores elaboran la bodoquera paso a paso.',
+      vivencia: 'Conoce el porqué y para qué se juega la bodoquera en comunidad.',
       retosaberes: 'Pon a prueba lo que aprendiste y gana saberes en cada nivel.',
     },
     levels: lv(
@@ -168,9 +168,9 @@ export const GAMES: Game[] = [
     vivenciaText: VIVENCIA,
     transitions: {
       mapa: 'Acompáñame a recorrer el territorio donde gira el trompo de fuete.',
-      origen: 'Escucha la historia del rayo y descubre de dónde viene el trompo.',
+      origen: 'Escucha la historia del rayo y descubre de dónde viene el trompo de fuete.',
       creando: 'Mira cómo se talla el trompo y se trenza el fuete de cabuya.',
-      vivencia: 'Conoce por qué y para qué se juega el trompo en comunidad.',
+      vivencia: 'Conoce el porqué y para qué se juega el trompo de fuete en comunidad.',
       retosaberes: 'Pon a prueba lo que aprendiste del trompo de fuete.',
     },
     levels: lv(
@@ -276,8 +276,8 @@ export const GAMES: Game[] = [
       mapa: 'Acompáñame a recorrer el territorio donde se juega el palmo o cacha.',
       origen: 'Escucha la historia del palmo y descubre de dónde viene este juego.',
       creando: 'Mira cómo se elaboran el palmo, la cacha y el hoyo.',
-      vivencia: 'Conoce por qué y para qué se juega el palmo en comunidad.',
-      retosaberes: 'Pon a prueba lo que aprendiste del palmo o cacha.',
+      vivencia: 'Conoce el porqué y para qué se juega el palmo o cacha en comunidad.',
+      retosaberes: 'Pon a prueba lo que aprendiste del palmo y la cacha.',
     },
     levels: lv(
       ['Reglas y acuerdos', 'Clasifica las tarjetas', 'Situación de turnos', 'Situación problema', 'Preguntas de saberes', 'Diseña tu palmo'],
@@ -376,8 +376,8 @@ export const GAMES: Game[] = [
     transitions: {
       mapa: 'Acompáñame a recorrer el territorio donde el viento hace sonar el zumbambico.',
       origen: 'Escucha la historia del zumbambico y del espíritu del viento.',
-      creando: 'Mira cómo se construye el zumbambico con semilla, guasca y guadua.',
-      vivencia: 'Conoce por qué y para qué se juega el zumbambico en comunidad.',
+      creando: 'Mira cómo se construye el zumbambico.',
+      vivencia: 'Conoce el porqué y para qué se juega el zumbambico en comunidad.',
       retosaberes: 'Pon a prueba lo que aprendiste del zumbambico.',
     },
     levels: lv(

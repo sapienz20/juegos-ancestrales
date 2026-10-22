@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { AVATAR_COUNT, NICKNAMES, PUEBLOS, ROLES, avatarSrc } from '../data';
 import { currentUser, login, register, updateUser, useStore } from '../store';
 import { nav, replace } from '../router';
-import { Btn, Colibri, Icon, Overlay } from '../ui';
+import { Btn, Icon, Overlay } from '../ui';
+import { InfoCard } from '../overlays';
 
 export function Splash() {
   const s = useStore();
@@ -77,7 +78,8 @@ export function Login() {
         </div>
       </div>
       {hello && (
-        <Colibri
+        <InfoCard
+          icon="user"
           title="¡Hola, semilla!"
           text="Para empezar el camino, cuéntanos quién eres."
           action="REGÍSTRATE"

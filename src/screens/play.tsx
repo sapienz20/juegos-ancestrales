@@ -4,6 +4,7 @@ import { completeLevel, today, uid, updateUser } from '../store';
 import { replace, nav } from '../router';
 import { Btn, Header, HelpButton, Icon, Overlay, Progress, TabBar, canSpeak, speak, themeStyle } from '../ui';
 import { chime, playSound, stopSound } from '../sound';
+import { ResultCard } from '../overlays';
 import { fmt, shrinkImage, useRecorder } from '../media';
 
 type Check = () => boolean;
@@ -656,49 +657,27 @@ export function Play({ g, n }: { g: GameId; n: number }) {
         </div>
       )}
       {result === 'error' && (
-        <Overlay>
-          <div className="res err-card">
-            <div className="res-bird">
-              <img src="img/colibri.png" alt="" />
-            </div>
-            <h2>¡Casi lo logras!</h2>
-            <p>Revisa tu respuesta e inténtalo de nuevo. Equivocarse también es aprender.</p>
-            <Btn
-              onClick={() => {
-                setResult(null);
-                setCheck(null);
-                setAttempt((a) => a + 1);
-              }}
-            >
-              REPITE
-            </Btn>
-          </div>
-        </Overlay>
+        <ResultCard
+          g={g}
+          ok={false}
+          onAction={() => {
+            setResult(null);
+            setCheck(null);
+            setAttempt((a) => a + 1);
+          }}
+        />
       )}
       {result === 'done' && (
-        <Overlay>
-          <div className="res ok-card">
-            <div className="res-ok">
-              <Icon name="check" size={44} />
-            </div>
-            <h2>¡Muy bien, acertaste!</h2>
-            <p>
-              Ganaste <b>+{n}</b> {n === 1 ? 'saber' : 'saberes'}
-            </p>
-            <Btn
-              onClick={() => {
-                setResult(null);
-                if (n < 6) replace({ name: 'play', g, n: n + 1 });
-                else replace({ name: 'logro', g });
-              }}
-            >
-              {n < 6 ? 'SIGUIENTE NIVEL' : 'VER MI LOGRO'}
-            </Btn>
-            <Btn kind="secondary" onClick={() => (setResult(null), replace({ name: 'levels', g }))}>
-              VOLVER A LOS NIVELES
-            </Btn>
-          </div>
-        </Overlay>
+        <ResultCard
+          g={g}
+          ok
+          n={n}
+          onAction={() => {
+            setResult(null);
+            if (n < 6) replace({ name: 'play', g, n: n + 1 });
+            else replace({ name: 'logro', g });
+          }}
+        />
       )}
     </div>
   );

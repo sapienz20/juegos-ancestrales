@@ -533,3 +533,39 @@ h1, h2, h3, h4, p { margin: 0; }
 .paso-pend { font-size: 14px; color: var(--soft); font-style: italic; background: #f4f4f4; border-radius: 12px; padding: 10px 12px; }
 .paso-ok { display: flex; align-items: center; gap: 6px; color: var(--greenb); font-weight: 900; }
 .accs, .acc-b, .acc-b p, .need li, .fase h5, .acc-sub, .acc-q { text-align: left; }
+
+/* ---------- overlays con personaje (diseño 2026-10) ---------- */
+.ov-bare { animation: pop .22s ease both; max-height: 96dvh; overflow: visible; }
+.ovx { position: relative; width: 352px; height: 426px; color: #052C47; }
+@media (max-width: 380px) { .ov-bare { zoom: .92; } }
+@media (max-width: 340px) { .ov-bare { zoom: .82; } }
+.ovx-bg { position: absolute; inset: 0; width: 352px; height: 426px; }
+.ovx-char { position: absolute; object-fit: contain; pointer-events: none; animation: float 2.6s ease-in-out infinite; }
+.ovx-head { position: absolute; left: 22px; right: 22px; top: 143px; height: 48px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.ovx-head-ic { display: grid; place-items: center; color: #122D46; }
+.ovx-head h2, .ovx-title2, .ovx-rtitle { font-size: 28px; font-weight: 900; line-height: 1.2; color: #052C47; }
+.ovx-title2 { position: absolute; left: 76px; right: 76px; top: 143.5px; text-align: center; }
+.ovx-body { position: absolute; left: 35px; right: 35px; top: 221px; font-size: 21px; line-height: 25.2px; text-align: center; }
+.ovx-round { position: absolute; left: 133.5px; top: 312.96px; width: 85px; height: 85px; border-radius: 50%; }
+.ovx-round svg { width: 85px; height: 85px; display: block; }
+.ovx-round:hover .ovx-round-in { fill: #CF7D2E; }
+.ovx-round:active { transform: scale(.95); }
+.ovx-round:active .ovx-round-in { fill: #9E561A; }
+.ovx-rtitle { position: absolute; left: 26px; right: 20px; top: 177px; text-align: center; font-size: 27px; line-height: 36px; padding-left: 16px; }
+.ovx-rmsg { position: absolute; left: 30px; right: 20px; padding-left: 16px; font-size: 18px; text-align: center; }
+.ovx-pillbox { position: absolute; left: 101.17px; top: 328.82px; }
+.ovx-mark { animation: pop .3s ease both; transform-origin: 184px 257px; }
+.ovx-pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 174.64px; height: 55.07px; border-radius: 24px; font-size: 19px; font-weight: 900; letter-spacing: .01em; padding: 0 12px; }
+.ovx-pill.cafe { color: #fff; background: #BC6C21; box-shadow: inset 0 0 0 4px #AC6123; }
+.ovx-pill.cafe:hover { background: #CF7D2E; }
+.ovx-pill.cafe:active { background: #9E561A; transform: translateY(2px); }
+.ovx-pill.naranja { color: #122D46; background: linear-gradient(90deg, #FEC073, #F5B957 38%, #EDB23E); box-shadow: inset 0 0 0 3.6px #F2B54C; }
+.ovx-pill.naranja:active { transform: translateY(2px); filter: brightness(.96); }
+.ovx-pill.gris { color: #3F6989; background: linear-gradient(90deg, #CCCCCC, #DBDBDB 54%, #ECECEC); }
+.ovx-pill.gris:active { transform: translateY(2px); filter: brightness(.96); }
+.ovi { width: 325px; max-width: 100%; border-radius: 21px; padding: 7px 9px 5px; background: linear-gradient(90deg, var(--m1), var(--m2) 57%, var(--m3)); color: #052C47; }
+.ovi-in { border-radius: 21px; background: linear-gradient(90deg, #F2E9D3, #F9EBCE 48%, #FFECC9); padding: 30px 20px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+.ovi.gris .ovi-in { background: #F2F2F2; }
+.ovi h2 { font-size: 28px; font-weight: 900; line-height: 1.2; }
+.ovi-tx { font-size: 16px; line-height: 1.25; white-space: pre-line; }
+.ovi-ic { color: #122D46; display: grid; place-items: center; margin-bottom: -6px; }

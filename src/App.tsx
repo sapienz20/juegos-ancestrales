@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useRoute, replace } from './router';
 import { currentUser, useStore } from './store';
-import { Colibri } from './ui';
+import { InfoCard } from './overlays';
+import { GameId } from './data';
 import { Login, Ready, Register, Setup, Splash, Welcome } from './screens/onboarding';
 import { GameHome, Levels, Logro, MapScreen, Menu, VideoScreen, Vivencia } from './screens/games';
 import { Play } from './screens/play';
@@ -55,7 +56,7 @@ export default function App() {
   return (
     <div className="phone">
       {screen}
-      {help && <Colibri title="Ayuda" text={help} action="ENTENDIDO" onAction={() => setHelp(null)} />}
+      {help && <InfoCard g={(r as { g?: GameId }).g} title="¿Cómo se juega?" text={help} onAction={() => setHelp(null)} />}
     </div>
   );
 }
