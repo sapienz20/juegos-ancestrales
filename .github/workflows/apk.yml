@@ -49,7 +49,21 @@ jobs:
           mkdir -p ~/.android
           cp firma/debug.keystore ~/.android/debug.keystore
           sed -i -E "s/versionCode [0-9]+/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"0.1.${{ github.run_number }}\"/" android/app/build.gradle
-          grep -E "versionCode|versionName" android/app/build.gradle
+          cat >> android/app/build.gradle <<'GRADLE'
+
+          android {
+              signingConfigs {
+                  fija {
+                      storeFile rootProject.file('../firma/debug.keystore')
+                      storePassword 'android'
+                      keyAlias 'androiddebugkey'
+                      keyPassword 'android'
+                  }
+              }
+              buildTypes { debug { signingConfig signingConfigs.fija } }
+          }
+          GRADLE
+          grep -E "versionCode|versionName|fija" android/app/build.gradle
 
       - name: Compilar APK
         working-directory: android
