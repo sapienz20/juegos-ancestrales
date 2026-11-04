@@ -80,7 +80,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 /* ---------- avatar ---------- */
 .avatar { display: inline-grid; place-items: center; border-radius: 50%; overflow: hidden; background: #fff; flex: none; }
-.avatar img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12) translateY(5%); }
+.avatar img { width: 100%; height: 100%; object-fit: contain; }
 .avatar.ring { box-shadow: 0 0 0 3px #fff, 0 2px 8px rgba(0,0,0,.2); }
 
 /* ---------- tab bar ---------- */
@@ -167,7 +167,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .setup-strip { display: flex; gap: 10px; overflow-x: auto; padding: 10px 40%; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .setup-strip::-webkit-scrollbar { display: none; }
 .av-opt { flex: none; width: 64px; height: 64px; border-radius: 50%; background: #fff; overflow: hidden; box-shadow: 0 0 0 2px #d9e4ee; scroll-snap-align: center; transition: transform .15s; }
-.av-opt img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12) translateY(5%); }
+.av-opt img { width: 100%; height: 100%; object-fit: contain; }
 .av-opt.on { box-shadow: 0 0 0 4px var(--h1); transform: scale(1.12); }
 .setup-fields { display: flex; flex-direction: column; gap: 12px; padding: 14px 22px; }
 .pfield { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; text-align: left; background: #fff; border-radius: 16px; padding: 10px 16px; box-shadow: inset 0 0 0 2px #d9e4ee; color: var(--icon); align-items: center; }
