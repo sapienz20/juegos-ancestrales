@@ -585,3 +585,31 @@ h1, h2, h3, h4, p { margin: 0; }
 .gen-lb { font-weight: 900; font-size: 15px; color: var(--navy); }
 .gen-opt:disabled { opacity: .35; }
 .gen-opt:disabled .av-opt { background: #eef2f6; }
+
+/* ---------- pantallas iniciales (sincronizadas con Figma) ---------- */
+.splash { justify-content: space-between; padding: 84px 20px calc(76px + var(--safe-b)); cursor: pointer; }
+.splash-wordmark { width: 256px; height: auto; animation: up .8s ease both; }
+.splash-go { width: 91px; height: 92px; border-radius: 50%; filter: drop-shadow(0 6px 14px rgba(0,0,0,.25)); animation: up .8s .2s ease both; }
+.splash-go img { width: 100%; height: 100%; }
+.splash-go:active { transform: scale(.95); }
+.auth-sil { width: 160px; height: 170px; filter: drop-shadow(0 6px 16px rgba(11,45,72,.15)); }
+.auth-sil.sm { width: 120px; height: 128px; }
+.ready { min-height: 100%; justify-content: center; gap: 20px; }
+.ready h1 { font-size: 30px; font-weight: 800; max-width: 230px; line-height: 1.2; }
+.ready-av .avatar { box-shadow: 0 6px 18px rgba(11,45,72,.18); }
+.ready-name { display: flex; flex-direction: column; line-height: 1.2; }
+.ready-name b { font-size: 24px; font-weight: 900; color: var(--navy); }
+.ready-name span { font-size: 24px; font-weight: 700; color: #526379; }
+.ready p { font-size: 20px; color: var(--navy); }
+.ready-ok { width: 87px; height: 87px; background: none; box-shadow: none; border-radius: 50%; }
+.ready-ok img { width: 100%; height: 100%; }
+.menu-top { position: relative; padding-top: 40px; gap: 0; }
+.menu-up { width: 72px; height: 72px; margin-bottom: 2px; }
+.menu-up img { width: 100%; height: 100%; }
+.menu-av .avatar { box-shadow: 0 6px 18px rgba(11,45,72,.2); }
+.menu-name { font-size: 36px; background: none; padding: 0; margin-top: 6px; line-height: 1.15; text-shadow: 0 1px 8px rgba(255,255,255,.8); }
+.menu-pueblo { font-size: 36px; font-weight: 700; color: #526379; background: none; padding: 0; line-height: 1.15; text-shadow: 0 1px 8px rgba(255,255,255,.8); }
+.menu-list { gap: 15px; padding: 18px 56px calc(40px + var(--safe-b)); }
+.menu-btn { min-height: 69px; border-radius: 25px; padding: 10px 14px; background: linear-gradient(180deg, #fbc27c, #edb03f); box-shadow: inset 0 0 0 3.4px var(--orb), 0 4px 0 var(--orp); }
+.menu-ic { width: 48px; height: 48px; background: #f2debb; color: var(--navy); box-shadow: none; }
+.menu-tx { flex: 1; white-space: nowrap; letter-spacing: 0; text-align: center; font-family: 'Nunito Sans', 'Nunito', sans-serif; font-size: 16.5px; font-weight: 900; color: var(--navy); }

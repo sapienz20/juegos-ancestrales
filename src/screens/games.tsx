@@ -20,30 +20,26 @@ export function Menu() {
   return (
     <div className="scr menu bgimg" style={{ backgroundImage: 'url(img/bg_camino.jpg)' }}>
       <div className="menu-top">
+        <button className="menu-up" onClick={() => nav({ name: 'perfil' })} aria-label="Mi recorrido">
+          <img src="img/subir.svg" alt="" />
+        </button>
         <button className="menu-av" onClick={() => nav({ name: 'perfil' })} aria-label="Mi perfil">
-          <Avatar n={u.avatar} size={132} />
+          <Avatar n={u.avatar} size={174} />
         </button>
         <div className="menu-name">{u.nickname}</div>
         <div className="menu-pueblo">{u.pueblo}</div>
       </div>
       <div className="menu-list">
-        {GAMES.map((g) => {
-          const d = u.done[g.id].length;
-          return (
-            <button key={g.id} className="menu-btn" onClick={() => nav({ name: 'map', g: g.id })}>
-              <span className="menu-ic" style={{ background: g.theme.h1 }}>
-                <GameIcon id={g.id} size={22} />
-              </span>
-              <span className="menu-tx">
-                <b>{g.name.toUpperCase()}</b>
-                <small>{d === 6 ? 'Completado' : d ? `${d} de 6 niveles` : 'Nuevo'}</small>
-              </span>
-              <Icon name="chev" size={22} />
-            </button>
-          );
-        })}
+        {GAMES.map((g) => (
+          <button key={g.id} className="menu-btn" onClick={() => nav({ name: 'map', g: g.id })}>
+            <span className="menu-ic">
+              <GameIcon id={g.id} size={27} />
+            </span>
+            <b className="menu-tx">{g.name.toUpperCase()}</b>
+            <Icon name="chev" size={26} />
+          </button>
+        ))}
       </div>
-      <TabBar active="juegos" />
     </div>
   );
 }

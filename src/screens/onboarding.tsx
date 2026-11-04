@@ -2,27 +2,32 @@ import { useEffect, useRef, useState } from 'react';
 import { AVATAR_GENERO, AVATAR_PUEBLO, AVATAR_PUEBLOS, NICKNAMES, PUEBLOS, ROLES, avatarSrc, avataresDe } from '../data';
 import { currentUser, login, register, updateUser, useStore } from '../store';
 import { nav, replace } from '../router';
-import { Btn, Icon, Overlay } from '../ui';
+import { Avatar, Btn, Icon, Overlay } from '../ui';
 import { InfoCard } from '../overlays';
 
 export function Splash() {
   const s = useStore();
-  useEffect(() => {
-    const t = setTimeout(() => {
-      const u = currentUser(s);
-      if (!u) replace({ name: 'login' });
-      else if (!u.profileDone) replace({ name: 'setup' });
-      else replace({ name: 'menu' });
-    }, 1800);
-    return () => clearTimeout(t);
-  }, []);
+  // Como en Figma: se avanza tocando la espiral (o cualquier parte de la pantalla).
+  const go = () => {
+    const u = currentUser(s);
+    if (!u) replace({ name: 'login' });
+    else if (!u.profileDone) replace({ name: 'setup' });
+    else replace({ name: 'menu' });
+  };
+  const [logo, setLogo] = useState(true);
   return (
-    <div className="scr bgimg splash" style={{ backgroundImage: 'url(img/bg_splash.jpg)' }}>
-      <h1 className="splash-title">
-        JUEGOS ANCESTRALES
-        <br />E INTERCULTURALES
-      </h1>
-      <img className="splash-logo" src="img/logo.png" alt="" />
+    <div className="scr bgimg splash" style={{ backgroundImage: 'url(img/bg_splash.jpg)' }} onClick={go}>
+      {logo ? (
+        <img className="splash-wordmark" src="img/logo_juegos.png" alt="Juegos ancestrales e interculturales" onError={() => setLogo(false)} />
+      ) : (
+        <h1 className="splash-title">
+          JUEGOS ANCESTRALES
+          <br />E INTERCULTURALES
+        </h1>
+      )}
+      <button className="splash-go" aria-label="Entrar" onClick={go}>
+        <img src="img/boton_espiral.svg" alt="" />
+      </button>
     </div>
   );
 }
@@ -51,18 +56,16 @@ export function Login() {
     const e = await login(user, pass);
     if (e) return setErr(e);
     const u = currentUser();
-    nav(u && u.profileDone ? { name: 'menu' } : { name: 'setup' });
+    nav(u && u.profileDone ? { name: 'ready' } : { name: 'setup' });
   };
   return (
     <div className="scr bgimg" style={{ backgroundImage: 'url(img/bg_login.jpg)' }}>
       <div className="auth">
-        <div className="auth-av">
-          <img src="img/avatar_base.png" alt="" />
-        </div>
+        <img className="auth-sil" src="img/silueta.svg" alt="" />
         <div className="auth-form">
           <label className="field">
             <Icon name="comunidad" size={18} />
-            <input placeholder="Usuario o correo" value={user} onChange={(e) => setUser(e.target.value)} autoComplete="username" />
+            <input placeholder="Usuario" value={user} onChange={(e) => setUser(e.target.value)} autoComplete="username" />
           </label>
           <label className="field">
             <Icon name="lock" size={18} />
@@ -101,7 +104,7 @@ export function Register() {
   const go = async () => {
     const e = await register(f);
     if (e) return setErr(e);
-    replace({ name: 'ready' });
+    replace({ name: 'setup' });
   };
   return (
     <div className="scr bgimg" style={{ backgroundImage: 'url(img/bg_registro.jpg)' }}>
@@ -109,12 +112,10 @@ export function Register() {
         <Icon name="back" size={24} />
       </button>
       <div className="auth">
-        <div className="auth-av sm">
-          <img src="img/avatar_base.png" alt="" />
-        </div>
+        <img className="auth-sil sm" src="img/silueta.svg" alt="" />
         <div className="auth-form">
           <label className="field">
-            <input placeholder="Nombres y apellidos" value={f.name} onChange={(e) => up('name')(e.target.value)} autoComplete="name" />
+            <input placeholder="Nombres y Apellidos" value={f.name} onChange={(e) => up('name')(e.target.value)} autoComplete="name" />
           </label>
           <label className="field">
             <span className="field-lb">Fecha de nacimiento</span>
@@ -139,18 +140,29 @@ export function Register() {
 }
 
 export function Ready() {
+  const s = useStore();
+  const u = currentUser(s);
+  const go = () => replace({ name: 'welcome' });
+  // Como en Figma: pasa sola a la bienvenida a los 3 segundos, o al tocar el botón.
+  useEffect(() => {
+    const t = setTimeout(go, 3000);
+    return () => clearTimeout(t);
+  }, []);
   return (
-    <div className="scr bgimg center" style={{ backgroundImage: 'url(img/bg_cielo.jpg)' }} onClick={() => replace({ name: 'setup' })}>
+    <div className="scr bgimg" style={{ backgroundImage: 'url(img/bg_cielo.jpg)' }} onClick={go}>
       <div className="ready">
-        <div className="auth-av">
-          <img src="img/avatar_base.png" alt="" />
-        </div>
         <h1>¡Tu cuenta está lista!</h1>
-        <p>Ya puedes explorar, aprender y vivenciar los juegos ancestrales.</p>
-        <div className="ready-ok">
-          <Icon name="check" size={40} />
+        <div className="ready-av">
+          <Avatar n={u?.avatar ?? 1} size={174} />
         </div>
-        <Btn onClick={() => replace({ name: 'setup' })}>CONTINUAR</Btn>
+        <div className="ready-name">
+          <b>{u?.nickname}</b>
+          <span>{u?.pueblo}</span>
+        </div>
+        <p>Ya puedes explorar, aprender y vivenciar los juegos ancestrales.</p>
+        <button className="ready-ok" aria-label="Continuar" onClick={go}>
+          <img src="img/boton_ok.svg" alt="" />
+        </button>
       </div>
     </div>
   );
@@ -187,7 +199,7 @@ export function Setup() {
   const save = () => {
     const first = !u.profileDone;
     updateUser((x) => ({ ...x, avatar, nickname: nick.trim() || 'Colibrí Azul', pueblo, profileDone: true }));
-    if (first) replace({ name: 'welcome' });
+    if (first) replace({ name: 'ready' });
     else history.back();
   };
 
