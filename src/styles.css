@@ -162,7 +162,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .setup-top { display: grid; place-items: center; padding: 40px 0 0; background: radial-gradient(circle at 50% 60%, #dbe9f7 0, #eaf3fb 60%, transparent 61%); }
 .setup-pueblo { margin-top: 6px; font-size: 15px; font-weight: 900; color: var(--navy); background: rgba(255,255,255,.85); border-radius: 99px; padding: 2px 14px; }
 .setup-top { flex-direction: column; }
-.setup-big { height: 230px; width: auto; filter: drop-shadow(0 8px 14px rgba(11,45,72,.2)); animation: up .35s ease both; }
+.setup-big { height: 190px; width: auto; filter: drop-shadow(0 8px 14px rgba(11,45,72,.2)); animation: up .35s ease both; }
 .setup-hint { text-align: center; color: var(--soft); font-weight: 700; margin: 8px 0 4px; }
 .setup-strip { display: flex; gap: 10px; overflow-x: auto; padding: 10px 40%; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .setup-strip::-webkit-scrollbar { display: none; }
@@ -571,3 +571,17 @@ h1, h2, h3, h4, p { margin: 0; }
 .ovi h2 { font-size: 28px; font-weight: 900; line-height: 1.2; }
 .ovi-tx { font-size: 16px; line-height: 1.25; white-space: pre-line; }
 .ovi-ic { color: #122D46; display: grid; place-items: center; margin-bottom: -6px; }
+
+/* selección de avatar: pueblo y género */
+.setup-step { margin: 12px 22px 6px; font-weight: 900; font-size: 15px; color: var(--navy); }
+.setup-pueblos { display: flex; gap: 8px; overflow-x: auto; padding: 2px 22px 6px; scrollbar-width: none; scroll-snap-type: x proximity; }
+.setup-pueblos::-webkit-scrollbar { display: none; }
+.setup-pueblos .chip { flex: none; scroll-snap-align: center; }
+.setup-gen { display: flex; justify-content: center; gap: 28px; padding: 4px 22px; }
+.gen-opt { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 96px; padding: 8px 6px 6px; border-radius: 18px; transition: background .15s; }
+.gen-opt .av-opt { width: 76px; height: 76px; }
+.gen-opt.on { background: rgba(255,255,255,.9); box-shadow: 0 2px 10px rgba(11,45,72,.12); }
+.gen-opt.on .av-opt { box-shadow: 0 0 0 4px var(--h1); }
+.gen-lb { font-weight: 900; font-size: 15px; color: var(--navy); }
+.gen-opt:disabled { opacity: .35; }
+.gen-opt:disabled .av-opt { background: #eef2f6; }

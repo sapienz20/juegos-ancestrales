@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AVATAR_COUNT, AVATAR_PUEBLO, NICKNAMES, PUEBLOS, ROLES, avatarSrc } from '../data';
+import { AVATAR_GENERO, AVATAR_PUEBLO, AVATAR_PUEBLOS, NICKNAMES, PUEBLOS, ROLES, avatarSrc, avataresDe } from '../data';
 import { currentUser, login, register, updateUser, useStore } from '../store';
 import { nav, replace } from '../router';
 import { Btn, Icon, Overlay } from '../ui';
@@ -159,17 +159,30 @@ export function Ready() {
 export function Setup() {
   const s = useStore();
   const u = currentUser(s)!;
-  const [avatar, setAvatar] = useState(u.avatar);
+  const [avatar, setAvatar] = useState(() => {
+    if (u.profileDone) return u.avatar;
+    const alias: Record<string, string> = { 'Totoró': 'Totoroez', 'Ambaló': 'Ampiuile', 'Otro pueblo': 'Urbano' };
+    const a = avataresDe(alias[u.pueblo] ?? u.pueblo);
+    return a.H ?? a.M ?? u.avatar;
+  });
   const [nick, setNick] = useState(u.nickname);
-  const [pueblo, setPueblo] = useState(u.pueblo);
-  const [sheet, setSheet] = useState<'' | 'nick' | 'pueblo'>('');
+  const [sheet, setSheet] = useState<'' | 'nick'>('');
   const [draft, setDraft] = useState('');
   const strip = useRef<HTMLDivElement>(null);
+  const pueblo = AVATAR_PUEBLO[avatar - 1] ?? AVATAR_PUEBLOS[0];
+  const genero = AVATAR_GENERO[avatar - 1] ?? 'H';
+  const pareja = avataresDe(pueblo);
 
   useEffect(() => {
-    const el = strip.current?.querySelector(`[data-n="${avatar}"]`) as HTMLElement | null;
+    const el = strip.current?.querySelector(`[data-p="${pueblo}"]`) as HTMLElement | null;
     el?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-  }, [avatar]);
+  }, [pueblo]);
+
+  // Al cambiar de pueblo se conserva el género elegido si ese pueblo lo tiene.
+  const elegirPueblo = (p: string) => {
+    const a = avataresDe(p);
+    setAvatar((a[genero] ?? a.H ?? a.M)!);
+  };
 
   const save = () => {
     const first = !u.profileDone;
@@ -189,13 +202,25 @@ export function Setup() {
         <img className="setup-big" src={avatarSrc(avatar)} alt={`Avatar ${AVATAR_PUEBLO[avatar - 1] ?? avatar}`} />
         <span className="setup-pueblo">{AVATAR_PUEBLO[avatar - 1]}</span>
       </div>
-      <p className="setup-hint">“Desliza y selecciona”</p>
-      <div className="setup-strip" ref={strip}>
-        {Array.from({ length: AVATAR_COUNT }, (_, i) => i + 1).map((n) => (
-          <button key={n} data-n={n} className={'av-opt' + (n === avatar ? ' on' : '')} onClick={() => setAvatar(n)} aria-label={`Avatar ${AVATAR_PUEBLO[n - 1]}`}>
-            <img src={avatarSrc(n)} alt="" loading="lazy" />
+      <p className="setup-step">1. Selecciona tu pueblo</p>
+      <div className="setup-pueblos" ref={strip}>
+        {AVATAR_PUEBLOS.map((p) => (
+          <button key={p} data-p={p} className={'chip' + (p === pueblo ? ' on' : '')} onClick={() => elegirPueblo(p)}>
+            {p}
           </button>
         ))}
+      </div>
+      <p className="setup-step">2. Selecciona tu género</p>
+      <div className="setup-gen">
+        {(['H', 'M'] as const).map((g) => {
+          const n = pareja[g];
+          return (
+            <button key={g} className={'gen-opt' + (n === avatar ? ' on' : '')} disabled={n == null} onClick={() => n && setAvatar(n)} aria-pressed={n === avatar}>
+              <span className="av-opt">{n ? <img src={avatarSrc(n)} alt="" /> : null}</span>
+              <span className="gen-lb">{g === 'H' ? 'Hombre' : 'Mujer'}</span>
+            </button>
+          );
+        })}
       </div>
       <div className="setup-fields">
         <button
@@ -208,11 +233,6 @@ export function Setup() {
           <span className="pfield-lb">“Crea tu nombre”</span>
           <span className="pfield-v">{nick}</span>
           <Icon name="pencil" size={20} />
-        </button>
-        <button className="pfield" onClick={() => setSheet('pueblo')}>
-          <span className="pfield-lb">“Selecciona tu pueblo”</span>
-          <span className="pfield-v">{pueblo}</span>
-          <Icon name="down" size={20} />
         </button>
       </div>
       <div className="setup-save">
@@ -243,28 +263,6 @@ export function Setup() {
             >
               LISTO
             </Btn>
-          </div>
-        </Overlay>
-      )}
-      {sheet === 'pueblo' && (
-        <Overlay onClose={() => setSheet('')}>
-          <div className="sheet">
-            <h2>Selecciona tu pueblo</h2>
-            <div className="list">
-              {PUEBLOS.map((p) => (
-                <button
-                  key={p}
-                  className={'list-it' + (p === pueblo ? ' on' : '')}
-                  onClick={() => {
-                    setPueblo(p);
-                    setSheet('');
-                  }}
-                >
-                  <span className="radio" />
-                  {p}
-                </button>
-              ))}
-            </div>
           </div>
         </Overlay>
       )}

@@ -457,6 +457,15 @@ export const NICKNAMES = ['Colibrí Azul', 'Semilla del Viento', 'Puntería Fina
 // Avatares por pueblo (AVATARS_actualizado.pdf), en el mismo orden de la hoja.
 export const AVATAR_PUEBLO = ['Totoroez', 'Totoroez', 'Nasa', 'Nasa', 'Eperara Siapidara', 'Eperara Siapidara', 'Yanakuna', 'Yanakuna', 'Kokonuko', 'Kokonuko', 'Inga', 'Inga', 'Misak', 'Misak', 'Ampiuile', 'Ampiuile', 'Kishu', 'Kishu', 'Polindara', 'Polindara', 'Embera', 'Urbano', 'Urbano'];
 export const AVATAR_COUNT = AVATAR_PUEBLO.length;
+// Género de cada avatar (H hombre, M mujer), en el mismo orden.
+export const AVATAR_GENERO: ('H' | 'M')[] = ['H', 'M', 'H', 'M', 'M', 'H', 'M', 'H', 'H', 'M', 'H', 'M', 'H', 'M', 'H', 'M', 'H', 'M', 'H', 'M', 'M', 'H', 'M'];
+export const AVATAR_PUEBLOS = AVATAR_PUEBLO.filter((p, i) => AVATAR_PUEBLO.indexOf(p) === i);
+/** Avatares de un pueblo: [hombre, mujer] (null si no hay). */
+export const avataresDe = (pueblo: string): Record<'H' | 'M', number | null> => {
+  const r: Record<'H' | 'M', number | null> = { H: null, M: null };
+  AVATAR_PUEBLO.forEach((p, i) => { if (p === pueblo && r[AVATAR_GENERO[i]] == null) r[AVATAR_GENERO[i]] = i + 1; });
+  return r;
+};
 export const avatarSrc = (n: number) => `img/avatares/avatar_${String(Math.min(Math.max(n, 1), AVATAR_COUNT)).padStart(2, '0')}.png`;
 
 export const SAMPLE_POSTS = [
