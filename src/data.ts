@@ -454,8 +454,10 @@ export const gameById = (id: string) => GAMES.find((g) => g.id === id)!;
 export const PUEBLOS = ['Nasa', 'Misak', 'Kokonuko', 'Totoró', 'Yanakuna', 'Polindara', 'Ambaló', 'Kishu', 'Inga', 'Eperara Siapidara', 'Otro pueblo'];
 export const ROLES = ['Estudiante', 'Docente', 'Familia', 'Sabedor o sabedora']; // POR VALIDAR
 export const NICKNAMES = ['Colibrí Azul', 'Semilla del Viento', 'Puntería Fina', 'Caminante del Río', 'Guardiana del Agua', 'Tejedor de Saberes', 'Sol de la Montaña', 'Viento del Páramo'];
-export const AVATAR_COUNT = 21;
-export const avatarSrc = (n: number) => `img/avatares/avatar_${String(n).padStart(2, '0')}.svg`;
+// Avatares por pueblo (AVATARS_actualizado.pdf), en el mismo orden de la hoja.
+export const AVATAR_PUEBLO = ['Totoroez', 'Totoroez', 'Nasa', 'Nasa', 'Eperara Siapidara', 'Eperara Siapidara', 'Yanakuna', 'Yanakuna', 'Kokonuko', 'Kokonuko', 'Inga', 'Inga', 'Misak', 'Misak', 'Ampiuile', 'Ampiuile', 'Kishu', 'Kishu', 'Polindara', 'Polindara', 'Embera', 'Urbano', 'Urbano'];
+export const AVATAR_COUNT = AVATAR_PUEBLO.length;
+export const avatarSrc = (n: number) => `img/avatares/avatar_${String(Math.min(Math.max(n, 1), AVATAR_COUNT)).padStart(2, '0')}.png`;
 
 export const SAMPLE_POSTS = [
   { id: 's1', author: 'Puntería Fina', pueblo: 'Misak', avatar: 6, text: 'Hoy jugamos bodoquera en la minga. Mi abuelo nos enseñó a escoger la madera.', game: 'Bodoquera', likes: 12 },

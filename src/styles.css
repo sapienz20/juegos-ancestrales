@@ -80,7 +80,7 @@ h1, h2, h3, h4, p { margin: 0; }
 
 /* ---------- avatar ---------- */
 .avatar { display: inline-grid; place-items: center; border-radius: 50%; overflow: hidden; background: #fff; flex: none; }
-.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; transform: scale(1.35) translateY(8%); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12) translateY(5%); }
 .avatar.ring { box-shadow: 0 0 0 3px #fff, 0 2px 8px rgba(0,0,0,.2); }
 
 /* ---------- tab bar ---------- */
@@ -160,12 +160,14 @@ h1, h2, h3, h4, p { margin: 0; }
 /* ---------- setup ---------- */
 .setup { background: linear-gradient(180deg, #eaf3fb, #fff 60%); padding-bottom: 24px; }
 .setup-top { display: grid; place-items: center; padding: 40px 0 0; background: radial-gradient(circle at 50% 60%, #dbe9f7 0, #eaf3fb 60%, transparent 61%); }
-.setup-big { height: 250px; width: auto; filter: drop-shadow(0 8px 14px rgba(11,45,72,.2)); animation: up .35s ease both; }
+.setup-pueblo { margin-top: 6px; font-size: 15px; font-weight: 900; color: var(--navy); background: rgba(255,255,255,.85); border-radius: 99px; padding: 2px 14px; }
+.setup-top { flex-direction: column; }
+.setup-big { height: 230px; width: auto; filter: drop-shadow(0 8px 14px rgba(11,45,72,.2)); animation: up .35s ease both; }
 .setup-hint { text-align: center; color: var(--soft); font-weight: 700; margin: 8px 0 4px; }
 .setup-strip { display: flex; gap: 10px; overflow-x: auto; padding: 10px 40%; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .setup-strip::-webkit-scrollbar { display: none; }
 .av-opt { flex: none; width: 64px; height: 64px; border-radius: 50%; background: #fff; overflow: hidden; box-shadow: 0 0 0 2px #d9e4ee; scroll-snap-align: center; transition: transform .15s; }
-.av-opt img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; transform: scale(1.4) translateY(10%); }
+.av-opt img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12) translateY(5%); }
 .av-opt.on { box-shadow: 0 0 0 4px var(--h1); transform: scale(1.12); }
 .setup-fields { display: flex; flex-direction: column; gap: 12px; padding: 14px 22px; }
 .pfield { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; text-align: left; background: #fff; border-radius: 16px; padding: 10px 16px; box-shadow: inset 0 0 0 2px #d9e4ee; color: var(--icon); align-items: center; }

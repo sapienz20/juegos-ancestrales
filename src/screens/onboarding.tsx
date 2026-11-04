@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AVATAR_COUNT, NICKNAMES, PUEBLOS, ROLES, avatarSrc } from '../data';
+import { AVATAR_COUNT, AVATAR_PUEBLO, NICKNAMES, PUEBLOS, ROLES, avatarSrc } from '../data';
 import { currentUser, login, register, updateUser, useStore } from '../store';
 import { nav, replace } from '../router';
 import { Btn, Icon, Overlay } from '../ui';
@@ -186,12 +186,13 @@ export function Setup() {
         </button>
       )}
       <div className="setup-top">
-        <img className="setup-big" src={avatarSrc(avatar)} alt={`Avatar ${avatar}`} />
+        <img className="setup-big" src={avatarSrc(avatar)} alt={`Avatar ${AVATAR_PUEBLO[avatar - 1] ?? avatar}`} />
+        <span className="setup-pueblo">{AVATAR_PUEBLO[avatar - 1]}</span>
       </div>
       <p className="setup-hint">“Desliza y selecciona”</p>
       <div className="setup-strip" ref={strip}>
         {Array.from({ length: AVATAR_COUNT }, (_, i) => i + 1).map((n) => (
-          <button key={n} data-n={n} className={'av-opt' + (n === avatar ? ' on' : '')} onClick={() => setAvatar(n)} aria-label={`Avatar ${n}`}>
+          <button key={n} data-n={n} className={'av-opt' + (n === avatar ? ' on' : '')} onClick={() => setAvatar(n)} aria-label={`Avatar ${AVATAR_PUEBLO[n - 1]}`}>
             <img src={avatarSrc(n)} alt="" loading="lazy" />
           </button>
         ))}
