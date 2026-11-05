@@ -151,9 +151,9 @@ export function Logros() {
 
 export function Mediateca() {
   const [f, setF] = useState<string>('todos');
-  const [open, setOpen] = useState<{ title: string; kind: string } | null>(null);
+  const [open, setOpen] = useState<{ title: string; kind: string; video?: string; poster?: string } | null>(null);
   const items = GAMES.flatMap((g) => [
-    { g, part: 'Origen', title: g.origen.title, kind: 'Narración animada' },
+    { g, part: 'Origen', title: g.origen.title, kind: 'Narración animada', video: g.origen.video, poster: g.origen.poster },
     { g, part: 'Creando', title: g.creando.title, kind: 'Video pedagógico' },
   ]).filter((x) => f === 'todos' || x.g.id === f);
   return (
@@ -190,7 +190,7 @@ export function Mediateca() {
         <Overlay onClose={() => setOpen(null)}>
           <div className="sheet">
             <h2>{open.title}</h2>
-            <Player title={open.title} kind={open.kind} />
+            <Player title={open.title} kind={open.kind} src={open.video} poster={open.poster} />
             <Btn kind="secondary" chev={false} onClick={() => setOpen(null)}>
               CERRAR
             </Btn>

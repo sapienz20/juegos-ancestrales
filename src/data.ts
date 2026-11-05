@@ -26,7 +26,7 @@ export type Game = {
   theme: Record<string, string>;
   map: string;
   vivencia: string;
-  origen: { title: string; text: string };
+  origen: { title: string; text: string; video?: string; poster?: string };
   creando: { title: string; text: string };
   vivenciaText: string;
   transitions: { mapa: string; origen: string; creando: string; vivencia: string; retosaberes: string };
@@ -60,7 +60,7 @@ export const GAMES: Game[] = [
     theme: { h1: '#1e7fe5', h2: '#7ba6eb', t1: '#5ea8f0', t2: '#a5bef0', acc: '#1e7fe5', accL: '#8db8f2', press: '#1a6fd0' },
     map: 'img/mapa.jpg',
     vivencia: 'img/vivencia_bodoquera.jpg',
-    origen: { title: 'La historia del viento', text: PENDIENTE('la narración de la historia del viento y el origen de la bodoquera') },
+    origen: { title: 'La historia del viento', text: 'Mira la narración animada de la historia del viento y descubre de dónde viene la bodoquera.', video: 'video/bodoquera_origen.mp4', poster: 'video/bodoquera_origen.jpg' },
     creando: { title: 'Construcción de la bodoquera', text: PENDIENTE('el paso a paso de la construcción de la bodoquera, con sus materiales') },
     vivenciaText: VIVENCIA,
     transitions: {

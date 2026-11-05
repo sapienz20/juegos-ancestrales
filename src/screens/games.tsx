@@ -123,7 +123,7 @@ export function VideoScreen({ g, part }: { g: GameId; part: 'origen' | 'creando'
       <Header title={game.name.toUpperCase()} section={part === 'origen' ? 'Origen' : 'Creando'} icon={`img/ic_${part}.png`} />
       <div className="body">
         <HelpButton text="Toca el botón de reproducir para ver el video. Lo puedes volver a ver en la Mediateca." />
-        <Player title={info.title} kind={part === 'origen' ? 'Narración animada' : 'Video pedagógico'} />
+        <Player title={info.title} kind={part === 'origen' ? 'Narración animada' : 'Video pedagógico'} src={'video' in info ? info.video : undefined} poster={'poster' in info ? info.poster : undefined} />
         <h2 className="vid-title">{info.title}</h2>
         <p className="vid-kind">({part === 'origen' ? 'Narración animada' : 'Video pedagógico'})</p>
         <p className="vid-text">{info.text}</p>
@@ -138,8 +138,30 @@ export function VideoScreen({ g, part }: { g: GameId; part: 'origen' | 'creando'
   );
 }
 
-// Reproductor de video: muestra el avance mientras se graban los videos reales.
-export function Player({ title, kind }: { title: string; kind: string }) {
+// Reproductor de video: si el juego ya tiene video lo reproduce; si no, muestra el avance.
+export function Player({ title, kind, src, poster }: { title: string; kind: string; src?: string; poster?: string }) {
+  if (src) return <RealPlayer src={src} poster={poster} title={title} />;
+  return <PendingPlayer title={title} kind={kind} />;
+}
+
+function RealPlayer({ src, poster, title }: { src: string; poster?: string; title: string }) {
+  const v = useRef<HTMLVideoElement>(null);
+  const [started, setStarted] = useState(false);
+  return (
+    <div className="player">
+      <div className="player-screen real">
+        <video ref={v} src={src} poster={poster} controls={started} playsInline preload="metadata" aria-label={title} onPlay={() => setStarted(true)} />
+        {!started && (
+          <button className="player-play" onClick={() => { setStarted(true); v.current?.play(); }} aria-label="Reproducir">
+            <Icon name="play" size={30} />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function PendingPlayer({ title, kind }: { title: string; kind: string }) {
   const [playing, setPlaying] = useState(false);
   const [t, setT] = useState(0);
   const timer = useRef<number>();
