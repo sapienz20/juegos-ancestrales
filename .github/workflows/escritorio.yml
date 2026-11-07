@@ -1,0 +1,57 @@
+# Compila el programa para Windows (instalador .exe) cada vez que se sube un cambio.
+# Queda en la pestaña "Releases" como "Escritorio v0.1.N".
+name: Compilar escritorio (Windows)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Compilar la app web
+        run: |
+          npm install
+          npm run build
+
+      - name: Preparar el programa
+        run: |
+          rm -rf desktop/web
+          cp -r dist desktop/web
+          cd desktop
+          npm version "0.1.${{ github.run_number }}" --no-git-tag-version --allow-same-version
+          npm install
+
+      - name: Crear el instalador
+        working-directory: desktop
+        run: npx electron-builder --win --x64 --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: juegos-ancestrales-windows
+          path: desktop/salida/*.exe
+
+      - name: Publicar en Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          f=$(ls desktop/salida/*.exe | head -1)
+          gh release create "escritorio-v0.1.${{ github.run_number }}" "$f" \
+            --title "Escritorio v0.1.${{ github.run_number }}" \
+            --notes "Instalador de Juegos Ancestrales para Windows." --latest=false

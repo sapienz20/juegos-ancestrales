@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Juegos Ancestrales</title>
+    <link rel="icon" href="img/logo.png" />
+    <style>
+      /* Marco de escritorio: la app se ve con el tamaño de un celular (412 px, como en Figma),
+         centrada sobre el paisaje. Va en un iframe para que se comporte igual que en el teléfono. */
+      html, body { margin: 0; height: 100%; overflow: hidden; }
+      body {
+        display: grid; place-items: center;
+        background: #7fb9ec url(img/bg_camino.jpg) center / cover no-repeat;
+      }
+      body::before {
+        content: ''; position: fixed; inset: 0;
+        background: inherit; filter: blur(14px) brightness(.85); transform: scale(1.08);
+      }
+      .tel {
+        position: relative; width: 412px; height: min(917px, calc(100vh - 40px));
+        border: 0; border-radius: 28px; background: #fff;
+        box-shadow: 0 24px 60px rgba(11, 45, 72, .45), 0 0 0 6px rgba(255, 255, 255, .55);
+      }
+      @media (max-width: 460px) { .tel { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; } }
+    </style>
+  </head>
+  <body>
+    <iframe class="tel" src="index.html" title="Juegos Ancestrales" allow="fullscreen; autoplay"></iframe>
+  </body>
+</html>

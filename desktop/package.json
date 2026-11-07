@@ -1,0 +1,29 @@
+{
+  "name": "juegos-ancestrales",
+  "productName": "Juegos Ancestrales",
+  "version": "0.1.0",
+  "description": "Juegos Ancestrales e Interculturales",
+  "author": "Juegos Ancestrales",
+  "main": "main.cjs",
+  "private": true,
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "co.juegosancestrales.app",
+    "productName": "Juegos Ancestrales",
+    "files": ["main.cjs", "web/**/*"],
+    "directories": { "output": "salida", "buildResources": "build" },
+    "artifactName": "JuegosAncestrales-Setup-${version}.${ext}",
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "build/icon.png" },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Juegos Ancestrales"
+    }
+  }
+}
