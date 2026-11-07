@@ -466,7 +466,7 @@ export const avataresDe = (pueblo: string): Record<'H' | 'M', number | null> => 
   AVATAR_PUEBLO.forEach((p, i) => { if (p === pueblo && r[AVATAR_GENERO[i]] == null) r[AVATAR_GENERO[i]] = i + 1; });
   return r;
 };
-export const avatarSrc = (n: number) => `img/avatares/avatar_${String(Math.min(Math.max(n, 1), AVATAR_COUNT)).padStart(2, '0')}.png`;
+export const avatarSrc = (n: number) => `img/avatares/avatar_${String(Math.min(Math.max(n, 1), AVATAR_COUNT)).padStart(2, '0')}.webp`;
 
 export const SAMPLE_POSTS = [
   { id: 's1', author: 'Puntería Fina', pueblo: 'Misak', avatar: 6, text: 'Hoy jugamos bodoquera en la minga. Mi abuelo nos enseñó a escoger la madera.', game: 'Bodoquera', likes: 12 },

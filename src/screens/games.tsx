@@ -83,15 +83,12 @@ export function GameHome({ g }: { g: GameId }) {
   const open = (k: string) => (u.seen.includes(`${g}:${k}`) ? go(k) : setPending(k));
   const titles: Record<string, string> = { origen: 'Origen', creando: 'Creando', vivencia: 'Vivencia', retosaberes: 'Retosaberes' };
   return (
-    <div className="scr themed" style={themeStyle(game)}>
+    <div className="scr themed ghome-scr" style={{ ...themeStyle(game), backgroundImage: `url(img/juego_${g}.jpg), url(${game.vivencia})` }}>
       <Header title={game.name.toUpperCase()} />
-      <div className="ghome bgimg" style={{ backgroundImage: 'url(img/bg_cielo.jpg)' }}>
-        <div className="ghome-hero">
-          <img src={game.vivencia} alt="" />
-        </div>
+      <div className="ghome">
         <div className="ghome-list">
           {SECTIONS.map((sec) => (
-            <Btn key={sec.key} kind="block" icon={<img src={`img/ic_${sec.key}_navy.png`} alt="" />} onClick={() => open(sec.key)}>
+            <Btn key={sec.key} kind="block" icon={<img src={`img/ic_${sec.key}_navy.webp`} alt="" />} onClick={() => open(sec.key)}>
               {sec.label}
             </Btn>
           ))}
@@ -120,7 +117,7 @@ export function VideoScreen({ g, part }: { g: GameId; part: 'origen' | 'creando'
   const info = game[part];
   return (
     <div className="scr themed" style={themeStyle(game)}>
-      <Header title={game.name.toUpperCase()} section={part === 'origen' ? 'Origen' : 'Creando'} icon={`img/ic_${part}.png`} />
+      <Header title={game.name.toUpperCase()} section={part === 'origen' ? 'Origen' : 'Creando'} icon={`img/ic_${part}.webp`} />
       <div className="body">
         <HelpButton text="Toca el botón de reproducir para ver el video. Lo puedes volver a ver en la Mediateca." />
         <Player title={info.title} kind={part === 'origen' ? 'Narración animada' : 'Video pedagógico'} src={'video' in info ? info.video : undefined} poster={'poster' in info ? info.poster : undefined} />
@@ -219,9 +216,11 @@ export function Vivencia({ g }: { g: GameId }) {
   const iconos = ['comunidad', 'tree', 'memoria'];
   return (
     <div className="scr themed" style={themeStyle(game)}>
-      <Header title={game.name.toUpperCase()} section="Vivencia" icon="img/ic_vivencia.png" />
+      <Header title={game.name.toUpperCase()} section="Vivencia" icon="img/ic_vivencia.webp" />
       <div className="body viv">
-        <div className="viv-hero" style={{ backgroundImage: `url(${game.vivencia})` }} />
+        <div className="viv-hero">
+          <img src={game.vivencia} alt="" />
+        </div>
         <div className="accs">
           {sec(
             'proposito',
@@ -342,7 +341,7 @@ export function Levels({ g }: { g: GameId }) {
   const highest = Math.max(0, ...u.done[g]);
   return (
     <div className="scr themed" style={themeStyle(game)}>
-      <Header title={game.name.toUpperCase()} section="Retosaberes" icon="img/ic_retosaberes.png" />
+      <Header title={game.name.toUpperCase()} section="Retosaberes" icon="img/ic_retosaberes.webp" />
       <div className="body">
         <HelpButton text="Selecciona un nivel y toca Aceptar. Los niveles se desbloquean a medida que completas el anterior." />
         <Progress level={highest} />
@@ -379,7 +378,7 @@ export function Logro({ g }: { g: GameId }) {
   const u = currentUser(s)!;
   return (
     <div className="scr themed logro" style={themeStyle(game)}>
-      <Header title={game.name.toUpperCase()} section="Retosaberes" icon="img/ic_retosaberes.png" />
+      <Header title={game.name.toUpperCase()} section="Retosaberes" icon="img/ic_retosaberes.webp" />
       <div className="body center-col">
         <div className="hex big">
           <GameIcon id={g} size={64} />

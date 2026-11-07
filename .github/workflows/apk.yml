@@ -41,6 +41,8 @@ jobs:
           node scripts/android-permisos.mjs
           npx @capacitor/assets@3 generate --android --iconBackgroundColor '#f4b23e' --splashBackgroundColor '#7fb9ec' || echo "Íconos por defecto"
           npx cap sync android
+          pip install --quiet pillow
+          python3 scripts/optimizar-android.py
 
       # Firma siempre con la misma llave, para que cada versión se instale encima de la anterior
       # sin borrar la app. También sube el número de versión en cada compilación.

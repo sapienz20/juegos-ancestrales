@@ -612,7 +612,7 @@ export function Play({ g, n }: { g: GameId; n: number }) {
 
   return (
     <div className="scr themed" style={themeStyle(game)}>
-      <Header title={game.name.toUpperCase()} section="Retosaberes" icon="img/ic_retosaberes.png" />
+      <Header title={game.name.toUpperCase()} section="Retosaberes" icon="img/ic_retosaberes.webp" />
       <div className="body play">
         <div className="play-top">
           <h2 className="instr">{step.instr}</h2>

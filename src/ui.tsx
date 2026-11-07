@@ -191,7 +191,7 @@ export function Colibri({ title, text, action = 'CONTINUAR', onAction }: { title
     <Overlay onClose={onAction}>
       <div className="coli">
         <div className="coli-bird">
-          <img src="img/colibri.png" alt="" />
+          <img src="img/colibri.webp" alt="" />
         </div>
         <h2>{title}</h2>
         <p>{text}</p>

@@ -617,3 +617,15 @@ h1, h2, h3, h4, p { margin: 0; }
 /* video real */
 .player-screen.real { aspect-ratio: 16/9; background: #000; }
 .player-screen.real video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+
+/* pantalla del juego e ilustración de Vivencia (ilustraciones de Figma, 412 px de ancho) */
+.ghome-scr { background-size: cover; background-position: center top; background-repeat: no-repeat; background-color: #8fc3e8; }
+.ghome { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+.ghome-list { gap: 15px; padding: 18px 64px 30px; }
+.viv-hero { height: auto; aspect-ratio: 412 / 300; overflow: hidden; background: none; }
+.viv-hero img { display: block; width: 100%; height: auto; margin-top: calc(-79 / 412 * 100%); }
+/* botones de secciones como en Figma: 284 × 69, ícono en círculo crema y texto centrado */
+.ghome-list .btn-block { min-height: 69px; border-radius: 25px; padding: 10px 14px; background: linear-gradient(180deg, #fbc27c, #edb03f); box-shadow: inset 0 0 0 3.4px var(--orb), 0 4px 0 var(--orp); }
+.ghome-list .btn-block .btn-ic { width: 48px; height: 48px; background: #f2debb; }
+.ghome-list .btn-block .btn-ic img { width: 27px; height: 27px; }
+.ghome-list .btn-block .btn-tx { text-align: center; font-family: 'Nunito Sans', 'Nunito', sans-serif; font-size: 16.5px; font-weight: 900; color: var(--navy); }

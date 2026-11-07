@@ -18,7 +18,7 @@ export function Splash() {
   return (
     <div className="scr bgimg splash" style={{ backgroundImage: 'url(img/bg_splash.jpg)' }} onClick={go}>
       {logo ? (
-        <img className="splash-wordmark" src="img/logo_juegos.png" alt="Juegos ancestrales e interculturales" onError={() => setLogo(false)} />
+        <img className="splash-wordmark" src="img/logo_juegos.webp" alt="Juegos ancestrales e interculturales" onError={() => setLogo(false)} />
       ) : (
         <h1 className="splash-title">
           JUEGOS ANCESTRALES

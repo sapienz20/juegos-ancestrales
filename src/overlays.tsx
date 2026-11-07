@@ -25,8 +25,12 @@ const POS: Record<GameId, Record<Kind, Box>> = {
 
 const at = ([x, y, w, h]: Box): CSSProperties => ({ left: x, top: y, width: w, height: h });
 
+// Algunas poses comparten imagen (secciones = explora; en el zumbambico, ánimo = feliz).
+const FILE = (g: GameId, kind: Kind): string =>
+  kind === 'secciones' && g !== 'zumbambico' ? 'explora' : g === 'zumbambico' && kind === 'animo' ? 'feliz' : kind;
+
 function Character({ g, kind }: { g: GameId; kind: Kind }) {
-  return <img className="ovx-char" src={`img/personajes/${g}_${kind}.png`} alt="" style={at(POS[g][kind])} />;
+  return <img className="ovx-char" src={`img/personajes/${g}_${FILE(g, kind)}.webp`} alt="" style={at(POS[g][kind])} />;
 }
 
 const grad = (c: string[], id: string) => (
