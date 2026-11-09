@@ -219,7 +219,7 @@ export function Mediateca() {
               <span className="media-tx">
                 <b>{t.nombre}</b>
                 <i>{t.tema}</i>
-                <em>Testimonio</em>
+                <em>Testimonio{t.dur ? ` · ${t.dur}` : ''}</em>
               </span>
             </button>
           ))}

@@ -475,12 +475,12 @@ export const SAMPLE_POSTS = [
 ];
 
 // Testimonios en audio de sabedores y docentes (Mediateca → Testimonios). Agrega `audio` cuando estén los archivos.
-export interface Testimonio { id: string; nombre: string; tema: string; audio?: string }
+export interface Testimonio { id: string; nombre: string; tema: string; audio?: string; dur?: string }
 export const TESTIMONIOS: Testimonio[] = [
-  { id: 't-bernabe', nombre: 'Bernabe Kisakwe Pumba', tema: 'Tumbichucue' },
-  { id: 't-didier', nombre: 'Didier Quilboa', tema: 'Tipos de juegos ancestrales' },
-  { id: 't-eliseo', nombre: 'Eliseo Ipia', tema: 'Reflexión: juegos ancestrales' },
-  { id: 't-fabian', nombre: 'Fabian Garreta', tema: 'Juegos de Tierradentro' },
-  { id: 't-hector', nombre: 'Hector Fabián Garreta', tema: 'Juegos ingas' },
-  { id: 't-jhonny', nombre: 'Jhonny Zeniceto', tema: 'Conservación' },
+  { id: 't-bernabe', nombre: 'Bernabe Kisakwe Pumba', tema: 'Tumbichucue', audio: 'audio/testimonio_bernabe.mp3', dur: '4:12' },
+  { id: 't-didier', nombre: 'Didier Quilboa', tema: 'Tipos de juegos ancestrales', audio: 'audio/testimonio_didier.mp3', dur: '1:37' },
+  { id: 't-eliseo', nombre: 'Eliseo Ipia', tema: 'Reflexión: juegos ancestrales', audio: 'audio/testimonio_eliseo.mp3', dur: '5:33' },
+  { id: 't-fabian', nombre: 'Fabian Garreta', tema: 'Juegos de Tierradentro', audio: 'audio/testimonio_fabian.mp3', dur: '1:16' },
+  { id: 't-hector', nombre: 'Hector Fabián Garreta', tema: 'Juegos ingas', audio: 'audio/testimonio_hector.mp3', dur: '1:23' },
+  { id: 't-jhonny', nombre: 'Jhonny Zeniceto', tema: 'Conservación', audio: 'audio/testimonio_jhonny.mp3', dur: '0:32' },
 ];
