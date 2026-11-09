@@ -16,9 +16,10 @@ const MARCO: Record<GameId | 'gris', [string, string, string]> = {
   gris: ['#CCCCCC', '#DBDBDB', '#ECECEC'],
 };
 
+// Trompo de fuete: la zarigüeya es más alta que ancha; sus cajas crecen hacia arriba y conservan la base.
 const POS: Record<GameId, Record<Kind, Box>> = {
   bodoquera: { explora: [9.16, 23.36, 116, 119.1], secciones: [9.16, 23.36, 116, 119.1], feliz: [127.08, 34.56, 125, 128.3], animo: [126.57, 39.24, 121.5, 124.7] },
-  trompo: { explora: [4.6, 15.57, 135, 138.6], secciones: [4.6, 15.57, 135, 138.6], feliz: [115.87, 31.53, 128.6, 132], animo: [121.65, 33.54, 112.1, 115.1] },
+  trompo: { explora: [4.6, 15.57, 135, 138.6], secciones: [4.6, 15.57, 135, 138.6], feliz: [115.87, 3.5, 128.6, 160], animo: [121.65, 8.6, 112.1, 140] },
   palmo: { explora: [5.08, 38.48, 108.2, 111.1], secciones: [5.08, 38.48, 108.2, 111.1], feliz: [123.51, 66.06, 102.6, 105.3], animo: [132.45, 64.53, 103.2, 105.9] },
   zumbambico: { explora: [21, 26.58, 131, 152.3], secciones: [6.52, 23.52, 141.5, 141.5], feliz: [101.84, 12.12, 159.8, 159.8], animo: [101.84, 12.12, 159.8, 159.8] },
 };
