@@ -149,9 +149,34 @@ export function Logros() {
   );
 }
 
+// Ícono de parlante de los testimonios (desde Figma).
+function Parlante({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={(size * 18) / 20} viewBox="0 0 20 18" fill="currentColor" aria-hidden="true">
+      <path d="M8.99 1C9.03 1.04 9.05 1.1 9.08 1.15L9.07 16.81C8.91 17.06 8.67 17.1 8.43 16.92L3.17 13.28C2.27 13.18 1.2 13.37 0.32 13.27C0.16 13.25 0.05 13.16 0 13.02V4.91C0.05 4.77 0.14 4.7 0.29 4.66L3.19 4.64L8.49 0.97C8.64 0.86 8.85 0.87 8.99 1Z" />
+      <path d="M17.4 15.61C16.7 16.36 15.82 17.05 14.91 17.54C14.69 17.66 14.05 18 13.82 18C13.4 18 13.13 17.55 13.29 17.17C13.42 16.86 14.26 16.56 14.58 16.37C20.47 12.9 20.09 4.58 14.12 1.36C13.83 1.21 13.41 1.13 13.28 0.8C13.1 0.31 13.56 -0.12 14.06 0.03C14.56 0.19 15.37 0.7 15.79 1C20.68 4.39 21.43 11.24 17.39 15.61H17.4Z" />
+      <path d="M12.34 3.07C12.65 3.02 13.05 3.25 13.32 3.4C16.9 5.39 17.72 10.23 14.97 13.27C14.45 13.84 13.47 14.63 12.73 14.88C12.2 15.06 11.72 14.63 11.93 14.12C12.05 13.81 12.59 13.64 12.88 13.47C16.19 11.47 16.26 6.7 13.02 4.6C12.73 4.42 12.08 4.18 11.95 3.91C11.79 3.58 11.96 3.13 12.34 3.07Z" />
+      <path d="M11.1 6.08C11.6 6.06 12.46 6.86 12.72 7.26C13.74 8.79 13.17 11.24 11.35 11.86C10.87 12.02 10.43 11.66 10.54 11.16C10.62 10.8 11.1 10.7 11.37 10.47C12.3 9.69 12.28 8.22 11.32 7.48C10.96 7.19 10.45 7.16 10.53 6.56C10.57 6.31 10.84 6.1 11.1 6.08Z" />
+    </svg>
+  );
+}
+
+// Reproductor de los testimonios en audio.
+function AudioTestimonio({ src, tema }: { src?: string; tema: string }) {
+  return (
+    <div className="audio-testi">
+      <span className="audio-ic">
+        <Parlante size={40} />
+      </span>
+      <i>{tema}</i>
+      {src ? <audio src={src} controls preload="metadata" /> : <p className="audio-pend">El audio de este testimonio se agregará pronto.</p>}
+    </div>
+  );
+}
+
 export function Mediateca() {
   const [f, setF] = useState<string>('todos');
-  const [open, setOpen] = useState<{ title: string; kind: string; video?: string; poster?: string } | null>(null);
+  const [open, setOpen] = useState<{ title: string; kind: string; video?: string; poster?: string; audio?: string; tema?: string } | null>(null);
   const juegos = GAMES.flatMap((g) => [
     { g, part: 'Origen', title: g.origen.title, kind: 'Narración animada', video: g.origen.video, poster: g.origen.poster },
     { g, part: 'Creando', title: g.creando.title, kind: 'Video pedagógico' },
@@ -187,9 +212,9 @@ export function Mediateca() {
               </button>
             ))}
           {testimonios.map((t) => (
-            <button key={t.id} className="media testi" onClick={() => setOpen({ title: t.nombre, kind: 'Testimonio · ' + t.tema, video: t.video, poster: t.poster })}>
+            <button key={t.id} className="media testi" onClick={() => setOpen({ title: t.nombre, kind: 'Testimonio', audio: t.audio, tema: t.tema })}>
               <span className="media-th testi-th">
-                <Icon name="play" size={20} />
+                <Parlante size={22} />
               </span>
               <span className="media-tx">
                 <b>{t.nombre}</b>
@@ -205,7 +230,7 @@ export function Mediateca() {
         <Overlay onClose={() => setOpen(null)}>
           <div className="sheet">
             <h2>{open.title}</h2>
-            <Player title={open.title} kind={open.kind} src={open.video} poster={open.poster} />
+            {open.tema !== undefined ? <AudioTestimonio src={open.audio} tema={open.tema} /> : <Player title={open.title} kind={open.kind} src={open.video} poster={open.poster} />}
             <Btn kind="secondary" chev={false} onClick={() => setOpen(null)}>
               CERRAR
             </Btn>

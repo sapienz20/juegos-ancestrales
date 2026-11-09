@@ -474,8 +474,8 @@ export const SAMPLE_POSTS = [
   { id: 's3', author: 'Guardiana del Agua', pueblo: 'Kokonuko', avatar: 19, text: 'Compartí mi dibujo del trompo con los colores de mi territorio.', game: 'Memoria', likes: 15 },
 ];
 
-// Testimonios de sabedores y docentes (Mediateca → Testimonios). Agrega `video` cuando estén los archivos.
-export interface Testimonio { id: string; nombre: string; tema: string; video?: string; poster?: string }
+// Testimonios en audio de sabedores y docentes (Mediateca → Testimonios). Agrega `audio` cuando estén los archivos.
+export interface Testimonio { id: string; nombre: string; tema: string; audio?: string }
 export const TESTIMONIOS: Testimonio[] = [
   { id: 't-bernabe', nombre: 'Bernabe Kisakwe Pumba', tema: 'Tumbichucue' },
   { id: 't-didier', nombre: 'Didier Quilboa', tema: 'Tipos de juegos ancestrales' },

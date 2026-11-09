@@ -636,3 +636,9 @@ h1, h2, h3, h4, p { margin: 0; }
 .media-tx i { color: #6b7f93; font-size: 15px; font-style: italic; }
 .media-tx em { color: #1e7fe5; font-size: 14px; font-style: normal; font-weight: 800; }
 .media.testi .media-tx b { font-size: 17px; font-weight: 900; }
+
+.audio-testi { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 12px; border-radius: 18px; background: #f3f8fb; box-shadow: inset 0 0 0 2px #e1e8ef; text-align: center; }
+.audio-ic { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--navy); box-shadow: inset 0 0 0 2px #6b84a3; }
+.audio-testi i { color: #6b7f93; font-size: 16px; }
+.audio-testi audio { width: 100%; }
+.audio-pend { color: var(--soft); font-size: 15px; margin: 0; }
