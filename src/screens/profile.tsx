@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { GAMES, SAMPLE_POSTS, avatarSrc } from '../data';
+import { GAMES, SAMPLE_POSTS, avatarSrc, TESTIMONIOS } from '../data';
 import { TOTAL_LEVELS, currentAccount, currentUser, levelsDone, logout, saberes, today, uid, updateUser, useStore } from '../store';
 import { nav, replace } from '../router';
 import { Avatar, Btn, GameIcon, Header, Icon, Overlay, TabBar } from '../ui';
@@ -152,34 +152,49 @@ export function Logros() {
 export function Mediateca() {
   const [f, setF] = useState<string>('todos');
   const [open, setOpen] = useState<{ title: string; kind: string; video?: string; poster?: string } | null>(null);
-  const items = GAMES.flatMap((g) => [
+  const juegos = GAMES.flatMap((g) => [
     { g, part: 'Origen', title: g.origen.title, kind: 'Narración animada', video: g.origen.video, poster: g.origen.poster },
     { g, part: 'Creando', title: g.creando.title, kind: 'Video pedagógico' },
   ]).filter((x) => f === 'todos' || x.g.id === f);
+  const testimonios = f === 'todos' || f === 'testimonios' ? TESTIMONIOS : [];
+  const chips = [{ id: 'todos', short: 'Todos' }, ...GAMES.map((g) => ({ id: g.id, short: g.short })), { id: 'testimonios', short: 'Testimonios' }];
   return (
     <div className="scr themed">
       <Header title="MEDIATECA" />
       <div className="body">
         <p className="lead">Videos y narraciones de cada juego. Toca uno para verlo de nuevo.</p>
         <div className="chips scroll">
-          {[{ id: 'todos', short: 'Todos' }, ...GAMES].map((g) => (
-            <button key={g.id} className={'chip' + (f === g.id ? ' on' : '')} onClick={() => setF(g.id)}>
-              {g.short}
+          {chips.map((c) => (
+            <button key={c.id} className={'chip' + (f === c.id ? ' on' : '')} onClick={() => setF(c.id)}>
+              {c.short}
             </button>
           ))}
         </div>
         <div className="media-list">
-          {items.map((it) => (
-            <button key={it.title} className="media" onClick={() => setOpen(it)}>
-              <span className="media-th" style={{ background: `linear-gradient(160deg, ${it.g.theme.h2}, ${it.g.theme.h1})` }}>
-                <Icon name="play" size={26} />
+          {f !== 'testimonios' &&
+            juegos.map((it) => (
+              <button key={it.title} className="media" onClick={() => setOpen(it)}>
+                <span className="media-th" style={{ background: `linear-gradient(160deg, ${it.g.theme.h2}, ${it.g.theme.h1})` }}>
+                  <Icon name="play" size={26} />
+                </span>
+                <span className="media-tx">
+                  <b>{it.title}</b>
+                  <small>{it.kind}</small>
+                  <small>
+                    {it.g.name} · {it.part}
+                  </small>
+                </span>
+              </button>
+            ))}
+          {testimonios.map((t) => (
+            <button key={t.id} className="media testi" onClick={() => setOpen({ title: t.nombre, kind: 'Testimonio · ' + t.tema, video: t.video, poster: t.poster })}>
+              <span className="media-th testi-th">
+                <Icon name="play" size={20} />
               </span>
               <span className="media-tx">
-                <b>{it.title}</b>
-                <small>{it.kind}</small>
-                <small>
-                  {it.g.name} · {it.part}
-                </small>
+                <b>{t.nombre}</b>
+                <i>{t.tema}</i>
+                <em>Testimonio</em>
               </span>
             </button>
           ))}

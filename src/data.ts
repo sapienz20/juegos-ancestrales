@@ -473,3 +473,14 @@ export const SAMPLE_POSTS = [
   { id: 's2', author: 'Semilla del Viento', pueblo: 'Nasa', avatar: 12, text: 'Trenzamos el fuete con cabuya. ¡El trompo bailó un buen rato!', game: 'Trompo de fuete', likes: 9 },
   { id: 's3', author: 'Guardiana del Agua', pueblo: 'Kokonuko', avatar: 19, text: 'Compartí mi dibujo del trompo con los colores de mi territorio.', game: 'Memoria', likes: 15 },
 ];
+
+// Testimonios de sabedores y docentes (Mediateca → Testimonios). Agrega `video` cuando estén los archivos.
+export interface Testimonio { id: string; nombre: string; tema: string; video?: string; poster?: string }
+export const TESTIMONIOS: Testimonio[] = [
+  { id: 't-bernabe', nombre: 'Bernabe Kisakwe Pumba', tema: 'Tumbichucue' },
+  { id: 't-didier', nombre: 'Didier Quilboa', tema: 'Tipos de juegos ancestrales' },
+  { id: 't-eliseo', nombre: 'Eliseo Ipia', tema: 'Reflexión: juegos ancestrales' },
+  { id: 't-fabian', nombre: 'Fabian Garreta', tema: 'Juegos de Tierradentro' },
+  { id: 't-hector', nombre: 'Hector Fabián Garreta', tema: 'Juegos ingas' },
+  { id: 't-jhonny', nombre: 'Jhonny Zeniceto', tema: 'Conservación' },
+];
